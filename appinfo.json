@@ -1,0 +1,30 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "ojhp",
+    "longName": "Orbit",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/orbit_icon_bw.png",
+                "menuIcon": true,
+                "name": "IMAGE_ICON",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Orbit",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "1d8e6cfd-ada2-4bf2-a1cd-9d1a362ad664",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
