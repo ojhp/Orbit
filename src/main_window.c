@@ -21,19 +21,23 @@
     #define TEXT_HEIGHT 42
 #endif
     
+// Internal functions for the main window type
 static void main_window_load(Window *);
 static void main_window_unload(Window *);
 static void update_clock(Layer *, GContext *);
 static void draw_hand(GContext *, int, int, int, GColor);
     
+// Structure for the main window
 struct MainWindow {
-    Window *window;
-    Layer *clock_layer;
-    TextLayer *text_layer;
-    int clock_size, clock_hours, clock_mins;
-    char text_buffer[6];
+    Window *window; // The window itself
+    Layer *clock_layer; // The layer used to render the clock hands
+    TextLayer *text_layer; // The text layer for the digital time
+    int clock_size; // The calculated size of the clock face
+    int clock_hours, clock_mins; // The current time in hours and minutes
+    char text_buffer[6]; // The text buffer for the time string
 };
 
+// Creates a new main window but does not push it onto the stack
 MainWindow *main_window_create() {
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Creating main window");
     
@@ -52,10 +56,12 @@ MainWindow *main_window_create() {
     return mw;
 }
 
+// Get the window that makes up the main window
 Window *main_window_get_window(MainWindow *mw) {
     return mw->window;
 }
 
+// Sets the time on the main window and updates the UI
 void main_window_set_time(MainWindow *mw, struct tm *time) {
     // Set time
     mw->clock_hours = time->tm_hour;
@@ -69,6 +75,7 @@ void main_window_set_time(MainWindow *mw, struct tm *time) {
     layer_mark_dirty(mw->clock_layer);
 }
 
+// Destroy's the main window and frees the allocatd space
 void main_window_destroy(MainWindow *mw) {
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Destroying main window");
     
@@ -76,6 +83,7 @@ void main_window_destroy(MainWindow *mw) {
     free(mw);
 }
 
+// Callback for the main window loading, constructs all required layers
 static void main_window_load(Window *window) {
     APP_LOG(APP_LOG_LEVEL_INFO, "Main window loaded");
     
@@ -117,6 +125,7 @@ static void main_window_load(Window *window) {
     layer_add_child(root, text_layer_get_layer(mw->text_layer));
 }
 
+// Callback for the main window unloading, cleans up all resources
 static void main_window_unload(Window *window) {
     APP_LOG(APP_LOG_LEVEL_INFO, "Main window unloaded");
     
@@ -128,6 +137,7 @@ static void main_window_unload(Window *window) {
     text_layer_destroy(mw->text_layer);
 }
 
+// Callback for rendering the clock layer, draws the hour and minute hands in the correct positions
 static void update_clock(Layer *layer, GContext *ctx) {
     // Get main window structure
     MainWindow *mw = *((MainWindow **)(layer_get_data(layer)));
@@ -141,6 +151,7 @@ static void update_clock(Layer *layer, GContext *ctx) {
     draw_hand(ctx, mw->clock_size, hour_angle, (mw->clock_size / 2) - 15, HOUR_COLOR);
 }
 
+// Draws an individual hand with a ring of the specified radius at the specified angle, in the specified colour
 static void draw_hand(GContext *ctx, int clock_size, int angle, int radius, GColor color) {
     // Find center point
     GPoint center = GPoint(clock_size / 2, clock_size / 2);
