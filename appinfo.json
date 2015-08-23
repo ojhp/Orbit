@@ -1,7 +1,11 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_CONDITIONS": 2,
+        "KEY_REQUEST": 0,
+        "KEY_TEMPERATURE": 1
+    },
     "capabilities": [
-        ""
+        "location"
     ],
     "companyName": "ojhp",
     "longName": "Orbit",
@@ -23,7 +27,7 @@
         "basalt"
     ],
     "uuid": "1d8e6cfd-ada2-4bf2-a1cd-9d1a362ad664",
-    "versionLabel": "1.0",
+    "versionLabel": "1.1",
     "watchapp": {
         "watchface": true
     }
